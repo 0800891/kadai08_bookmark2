@@ -1,6 +1,6 @@
 
 <?php
-
+require_once('funcs.php');
 /**
  * 1. index.phpのフォームの部分がおかしいので、ここを書き換えて、
  * insert.phpにPOSTでデータが飛ぶようにしてください。
@@ -23,23 +23,14 @@ $comment = $_POST['comment'];
 if(isset($_POST['image'])){
 $image = $_POST['image'];
 }
-
-//本番環境データベース
-$prod_db = "michey_kadai07";
-//本番環境ホスト
-$prod_host = "mysql648.db.sakura.ne.jp";
-//本番環境ID
-$prod_id = "michey";
-//本番環境PW
-$prod_pw = "Sss560906";
-
 //2. DB接続します
-try {
-    //ID:'root', Password: xamppは 空白 ''
-    $pdo = new PDO('mysql:dbname=' . $prod_db . ';charset=utf8;host='. $prod_host , $prod_id, $prod_pw);
-} catch (PDOException $e) {
-    exit('DBConnectError:'.$e->getMessage());
-}
+// try {
+//     //ID:'root', Password: xamppは 空白 ''
+//     $pdo = new PDO('mysql:dbname=gs_db_kadai07;charset=utf8;host=localhost', 'root', '');
+// } catch (PDOException $e) {
+//     exit('DBConnectError:'.$e->getMessage());
+// }
+$pdo = db_conn();
 
 //３．データ登録SQL作成
 $stmt = $pdo->prepare('INSERT INTO
@@ -60,8 +51,9 @@ $status = $stmt->execute();
 //４．データ登録処理後
 if($status === false) {
     //SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
-    $error = $stmt->errorInfo();
-    exit('ErrorMessage:'.$error[2]);
+    // $error = $stmt->errorInfo();
+    // exit('ErrorMessage:'.$error[2]);
+    sql_error($stmt);
 } else {
     //５．index.phpへリダイレクト
   header('Location: index.php');

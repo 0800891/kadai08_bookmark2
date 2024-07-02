@@ -6,13 +6,15 @@ require_once('funcs.php');
 // };
 
 //1.  DB接続します
-try {
-  //ID:'root', Password: xamppは 空白 ''
-  $pdo = new PDO('mysql:dbname=gs_db_kadai07;charset=utf8;host=localhost', 'root', '');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+// try {
+//   //ID:'root', Password: xamppは 空白 ''
+//   $pdo = new PDO('mysql:dbname=gs_db_kadai07;charset=utf8;host=localhost', 'root', '');
+// } catch (PDOException $e) {
+//   exit('DBConnectError:'.$e->getMessage());
+// }
 
+
+$pdo = db_conn();
 //２．データ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table_r1");
 $status = $stmt->execute();
@@ -21,8 +23,9 @@ $status = $stmt->execute();
 $view="";
 if ($status==false) {
     //execute（SQL実行時にエラーがある場合）
-  $error = $stmt->errorInfo();
-  exit("ErrorQuery:".$error[2]);
+  // $error = $stmt->errorInfo();
+  // exit("ErrorQuery:".$error[2]);
+    sql_error($stmt);
 
 }else{
   //Selectデータの数だけ自動でループしてくれる
