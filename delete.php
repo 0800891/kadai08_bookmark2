@@ -6,7 +6,7 @@ try {
     $user = "root";
     $password = "";
 
-    $dbh = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
+    // $dbh = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
     $dbh = db_conn();
 
     $stmt = $dbh->prepare('DELETE FROM gs_bm_table_r1 WHERE id = :id');
