@@ -1,11 +1,12 @@
 
 <?php
+require_once('funcs.php');
+
 try {
     $user = "root";
     $password = "";
     // PDOを使った接続
-    $conn = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
-
+    $conn = db_conn();
     // エラーモードを例外に設定
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
