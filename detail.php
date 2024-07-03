@@ -42,7 +42,7 @@ var_dump($result);
     <header>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand" href="select.php">データ一覧</a></div>
+                <div class="navbar-header"><a class="navbar-brand" href="update.php">データ一覧</a></div>
             </div>
         </nav>
     </header>
@@ -58,8 +58,9 @@ var_dump($result);
                 <label>コメント：<textArea name="comment" rows="4" cols="40" id="comment" value="<?= $result['comment']?>"><?= $result['comment']?></textArea></label><br>
                 <label><img src ="<?=$result['image']?>" alt = 'デーコードされた画像' width='100%' height='100%'></label><br>
                 <label id="img_text">登録したい画像のファイルを選択してください</label><br>
-                <input type="file" id="imgUpload"><br>
-                <input type="hidden" name="id" value="<?= $result['id']?>">
+                <label><input type="file" id="imgUpload"></label><br>
+                <!-- <label><input type="hidden" name="id" value="<?= $result['id']?>"></label><br> -->
+                <label><input name="id" value="<?= $result['id']?>"></label><br>
 
 
                 <!-- <input type="submit" value="送信"> -->
@@ -78,11 +79,13 @@ $("#show").on("click", function(){
     let name =  $("#name").val();
     let URL = $("#URL").val();
     let comment = $("#comment").val();
+    let id = $("#id").val();
 
     let xhr = new XMLHttpRequest();
         xhr.open('POST','update.php',true);
         xhr.responseType = 'text';//'text','json','arraybuffer','document','blob'
         let fd = new FormData();
+        fd.append("id",name);
 
         fd.append("name",name);
         // console.log(name,'name');
@@ -99,6 +102,10 @@ $("#show").on("click", function(){
         const uploadPhotoButton = document.querySelector('#imgUpload');
         let file = uploadPhotoButton.files[0];
         if(file==undefined){
+            let img_src = "<?=$result['image']?>";
+
+           fd.append("image",img_src);
+            xhr.send(fd);
             window.location.href = 'update.php'; 
         }else{
         reader.readAsDataURL(file);
