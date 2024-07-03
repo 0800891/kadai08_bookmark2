@@ -33,8 +33,9 @@ if ($status==false) {
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
     $view .= "<tr>";
     // $view .= h($result['id']) . h($result['date']) . ' ' . h($result['name']) . ' ' . h($result['URL']) . ' ' . h($result['comment']);
-    $view .= '<td>' . h($result['id']) .  '</td>' ;
-    $view .= '<td>' . h($result['name']) .  '</td>' ;
+    $view .= '<td><a href = "detail.php?id=' . h($result['id']) .'">';
+    $view .= h($result['id']) . '</a></td>' ;
+    $view .= '<td><a href = "detail.php?id=' . h($result['id']) .'">' . h($result['name']) .  '</td>' ;
     $view .= '<td><img src =' . h($result['image']) . 'alt = "デーコードされた画像" width="40%" height="40%"></td>' ;
     $view .= '<td>' . h($result['comment']) .  '</td>' ;
     $view .= '<td width="10px">' . h($result['URL']) .  '</td>' ;
@@ -85,7 +86,10 @@ if ($status==false) {
       <td>Date</td>
       <td><a href = resetid.php?>id_Reset</a></td>
     </tr>
-    <div class="container jumbotron"><?= $view ?></div>
+    <div class="container jumbotron">
+      <a href="detail.php"></a>
+      <?= $view ?>
+    </div>
 </div>
 <!-- Main[End] -->
 
