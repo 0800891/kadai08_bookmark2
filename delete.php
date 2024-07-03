@@ -1,12 +1,13 @@
 
 <?php
-
+require_once('funcs.php');
 try {
 
     $user = "root";
     $password = "";
 
     $dbh = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
+    $dbh = db_conn();
 
     $stmt = $dbh->prepare('DELETE FROM gs_bm_table_r1 WHERE id = :id');
 
@@ -21,8 +22,8 @@ try {
 
 try {
     // PDOを使った接続
-    $conn = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
-
+    // $conn = new PDO("mysql:host=localhost; dbname=gs_db_kadai07; charset=utf8", "$user", "$password");
+    $conn = db_conn();
     // エラーモードを例外に設定
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
